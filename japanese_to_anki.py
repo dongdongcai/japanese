@@ -6,6 +6,11 @@ from typing import Any, Dict, List
 
 import requests
 
+try:
+    from prompt_toolkit import prompt
+except ImportError:
+    prompt = None
+
 
 OPENAI_API_URL = "https://api.openai.com/v1/responses"
 ANKI_CONNECT_URL = "http://localhost:8765"
@@ -195,7 +200,10 @@ def add_to_anki(notes: List[Dict[str, Any]]) -> List[Any]:
 
 def main() -> None:
     try:
-        japanese_sentence = input("请输入日语句子: ").strip()
+        if prompt is not None:
+            japanese_sentence = prompt("请输入日语句子: ").strip()
+        else:
+            japanese_sentence = input("请输入日语句子: ").strip()
         if not japanese_sentence:
             print("错误：输入不能为空。")
             sys.exit(1)
