@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+SCRIPT_DIR="${0:A:h}"
+VENV_PYTHON="$SCRIPT_DIR/.venv/bin/python"
+SCRIPT_PATH="$SCRIPT_DIR/japanese_to_anki.py"
+
+if [[ ! -x "$VENV_PYTHON" ]]; then
+  echo "Error: Virtual environment Python was not found. Please create .venv in $SCRIPT_DIR first."
+  exit 1
+fi
+
+exec "$VENV_PYTHON" "$SCRIPT_PATH" "$@"

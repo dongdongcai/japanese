@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import html
 import json
 import os
@@ -200,7 +202,9 @@ def add_to_anki(notes: List[Dict[str, Any]]) -> List[Any]:
 
 def main() -> None:
     try:
-        if prompt is not None:
+        if len(sys.argv) > 1:
+            japanese_sentence = " ".join(sys.argv[1:]).strip()
+        elif prompt is not None:
             japanese_sentence = prompt("请输入日语句子: ").strip()
         else:
             japanese_sentence = input("请输入日语句子: ").strip()
