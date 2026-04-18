@@ -200,6 +200,15 @@ def add_to_anki(notes: List[Dict[str, Any]]) -> List[Any]:
     return result
 
 
+def confirm_add_to_anki() -> bool:
+    prompt_text = "\n是否将这些卡片加入 Anki？[y/N]: "
+    if prompt is not None:
+        answer = prompt(prompt_text).strip().lower()
+    else:
+        answer = input(prompt_text).strip().lower()
+    return answer in {"y", "yes"}
+
+
 def main() -> None:
     try:
         if len(sys.argv) > 1:
@@ -226,6 +235,10 @@ def main() -> None:
         print(f"1. {scenarios_zh[0]}")
         print(f"2. {scenarios_zh[1]}")
         print(f"说明：{explanation_zh}")
+
+        if not confirm_add_to_anki():
+            print("\n已取消：未添加任何 Anki 卡片。")
+            sys.exit(0)
 
         card_1_front = "<br>".join(
             [
